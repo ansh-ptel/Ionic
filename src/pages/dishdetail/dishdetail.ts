@@ -2,13 +2,15 @@ import { Component, Inject } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Dish } from '../../shared/dish';
 import { Comment } from '../../shared/comment';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 /**
  * Generated class for the DishdetailPage page.
  *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
  */
+
 @IonicPage()
 @Component({
   selector: 'page-dishdetail',
@@ -19,20 +21,26 @@ export class DishdetailPage {
   errMess: string;
   avgstars: string;
   numcomments: number;
-  comment: Comment;
-  
+  favorite: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    @Inject('BaseURL') public BaseURL) {
-    this.dish = navParams.get('dish');
-    this.numcomments = this.dish.comments.length;
-    let total = 0;
-    this.dish.comments.forEach(comment => total += comment.rating );
-    this.avgstars = (total/this.numcomments).toFixed(2);
+    @Inject('BaseURL') public BaseURL,
+    private favoriteService: FavoriteProvider
+  ) {
+      this.dish = this.navParams.get('dish');
+      this.favorite = this.favoriteService.isFavorite(this.dish.id);
+      this.numcomments = this.dish.comments.length;
+      let total = 0;
+      this.dish.comments.forEach(comment => total += comment.rating);
+      this.avgstars = (total/this.numcomments).toFixed(2);
+  }
+
+  addToFavorites(){
+    console.log('Adding to Favorites ',this.dish.id);
+    this.favorite = this.favoriteService.addFavorite(this.dish.id);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DishdetailPage');
   }
-
 }
