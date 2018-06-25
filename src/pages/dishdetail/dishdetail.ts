@@ -46,7 +46,7 @@ export class DishdetailPage {
     this.favorite = this.favoriteService.addFavorite(this.dish.id);
     this.toastCtrl.create({
       message: 'Dish ' + this.dish.id + ' added as favorite successfully',
-      position: 'middle',
+      position: 'top',
       duration: 3000
     }).present();
   }
