@@ -8,8 +8,9 @@ import { AboutPage } from '../pages/about/about';
 import { MenuPage } from '../pages/menu/menu';
 import { ContactPage } from '../pages/contact/contact';
 import { FavoritesPage } from '../pages/favorites/favorites';
+import { FavoriteProvider } from '../providers/favorite/favorite';
 import { ReservationPage } from '../pages/reservation/reservation';
-
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,13 +28,11 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', icon: 'home' ,component: HomePage },
-      { title: 'About', icon: 'information-circle' ,component: AboutPage },
-      { title: 'Menu', icon: 'list-box' ,component: MenuPage },
-      { title: 'Contact',icon: 'contact' ,component: ContactPage },
-      { title: 'Favorites',icon: 'heart' ,component: FavoritesPage },
-
-      
+      { title: 'Home', icon: 'home', component: HomePage },
+      { title: 'About', icon: 'information-circle', component: AboutPage },
+      { title: 'Menu', icon: 'list-box', component: MenuPage },
+      { title: 'Contact', icon: 'contact', component: ContactPage },
+      { title: 'Favorites', icon: 'heart', component: FavoritesPage }
     ];
 
   }
@@ -55,6 +54,10 @@ export class MyApp {
 
   openReserve() {
     let modal = this.modalCtrl.create(ReservationPage);
+    modal.present();
+  }
+  openLogin() {
+    let modal = this.modalCtrl.create(LoginPage);
     modal.present();
   }
 }
