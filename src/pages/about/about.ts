@@ -16,19 +16,18 @@ import { LeaderProvider } from '../../providers/leader/leader';
   templateUrl: 'about.html',
 })
 export class AboutPage {
-
   leaders: Leader[];
   errMess: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private leaderService: LeaderProvider,
-    @Inject('BaseURL') public BaseURL) {
-  }
+    @Inject('BaseURL') public BaseURL
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.leaderService.getLeaders()
       .subscribe(leaders => this.leaders = leaders,
-        errmess => this.errMess = <any>errmess);
+      errmess => this.errMess = <any>errmess);
   }
 
   ionViewDidLoad() {
