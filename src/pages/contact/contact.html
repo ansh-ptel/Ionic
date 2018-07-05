@@ -1,6 +1,5 @@
 <!--
   Generated template for the ContactPage page.
-
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
@@ -10,7 +9,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Contact</ion-title>
+    <ion-title>Contact Us</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -18,13 +17,13 @@
 
 <ion-content padding>
   <ion-card>
-    <ion-card-content color="primary">
+    <ion-card-header color="primary">
       Location Information
-    </ion-card-content>
+    </ion-card-header>
     <ion-card-content>
       <address>
         121, Clear Water Bay Road<br>
-        Clear Water Bay, Knowloon<br>
+        Clear Water Bay, Kowloon<br>
         HONG KONG<br>
         <ion-icon name="call"></ion-icon>: +852 1234 5678<br>
         <ion-icon name="print"></ion-icon>: +852 1234 5678<br>
@@ -33,16 +32,15 @@
     </ion-card-content>
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear left>
-          <ion-icon name="call"></ion-icon>CALL
+        <button ion-button icon-left clear small (click)="callRestaurent()">
+          <ion-icon name="call"></ion-icon> CALL
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-left clear left clear small (click)="sendEmail()">
-          <ion-icon name="mail"></ion-icon>EMAIL
+        <button ion-button icon-left clear small (click)="sendEmail()">
+          <ion-icon name="mail"></ion-icon> EMAIL
         </button>
       </ion-col>
     </ion-row>
   </ion-card>
-
 </ion-content>
