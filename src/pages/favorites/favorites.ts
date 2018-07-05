@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, ItemSliding, ToastController, Load
 
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { Dish } from '../../shared/dish';
+
 /**
  * Generated class for the FavoritesPage page.
  *
@@ -15,23 +16,22 @@ import { Dish } from '../../shared/dish';
   selector: 'page-favorites',
   templateUrl: 'favorites.html',
 })
-export class FavoritesPage implements OnInit {
-
+export class FavoritesPage {
   favorites: Dish[];
   errMess: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private favoriteservice: FavoriteProvider,
+    private favoriteService: FavoriteProvider,
     @Inject('BaseURL') public BaseURL,
-    public toastCtrl: ToastController,
+    private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
-    private alertCtrl: AlertController) {
-  }
+    private alertCtrl: AlertController
+  ) { }
 
   ngOnInit() {
-    this.favoriteservice.getFavorites()
+    this.favoriteService.getFavorites()
       .subscribe(favorites => this.favorites = favorites,
-        errmess => this.errMess = errmess);
+      errmess => this.errMess = <any>errmess);
   }
 
   ionViewDidLoad() {
@@ -39,17 +39,16 @@ export class FavoritesPage implements OnInit {
   }
 
   deleteFavorite(item: ItemSliding, id: number) {
-    console.log('delete', id);
-
+    console.log('delete ',id);
     let alert = this.alertCtrl.create({
       title: 'Confirm Delete',
-      message: 'Do you want to delete Dish '+ id,
+      message: 'Do you want to delete Dish ' + id,
       buttons: [
         {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
-            console.log('Delete cancelled');
+            console.log("Delete canceled");
           }
         },
         {
@@ -58,21 +57,19 @@ export class FavoritesPage implements OnInit {
             let loading = this.loadingCtrl.create({
               content: 'Deleting . . .'
             });
-            let toast = this.toastCtrl.create({
-              message: 'Dish ' + id + ' deleted successfully', 
-              duration: 3000});
+            let toast =     this.toastCtrl.create({
+              message: 'Dish ' + id + ' deleted successfully',
+              duration: 3000
+            });
             loading.present();
-            this.favoriteservice.deleteFavorite(id)
-              .subscribe(favorites => {this.favorites = favorites; loading.dismiss(); toast.present(); } ,
-                errmess =>{ this.errMess = errmess; loading.dismiss(); });
+            this.favoriteService.deleteFavorite(id)
+              .subscribe(favorites => { this.favorites = favorites; loading.dismiss(); toast.present(); },
+              errmess => { this.errMess = errmess; loading.dismiss(); });     
           }
         }
       ]
     });
-  
     alert.present();
-
     item.close();
-
   }
 }

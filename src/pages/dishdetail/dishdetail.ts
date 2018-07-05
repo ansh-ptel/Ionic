@@ -5,8 +5,8 @@ import { Comment } from '../../shared/comment';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { CommentPage } from '../../pages/comment/comment';
 import { addToViewTree } from '@angular/core/src/render3/instructions';
-import { SocialSharing} from '@ionic-native/social-sharing';
- 
+import { SocialSharing } from '@ionic-native/social-sharing';
+
 /**
  * Generated class for the DishdetailPage page.
  *
@@ -48,7 +48,7 @@ export class DishdetailPage {
     this.favorite = this.favoriteService.addFavorite(this.dish.id);
     this.toastCtrl.create({
       message: 'Dish ' + this.dish.id + ' added as favorite successfully',
-      position: 'top',
+      position: 'middle',
       duration: 3000
     }).present();
   }
@@ -66,16 +66,12 @@ export class DishdetailPage {
           handler: () => this.addToFavorites()
         },
         {
-          text: 'Add Comment',
-          handler: () => this.openComment()
-        },
-        {
           text: 'Share via Facebook',
           handler: () => {
             this.socialSharing.shareViaFacebook(this.dish.name + ' -- ' + this.dish.description, this.BaseURL + this.dish.image, '')
               .then(() => console.log('Posted successfully to Facebook'))
               .catch(() => console.log('Failed to post to Facebook'));
-          }   
+          }
         },
         {
           text: 'Share via Twitter',
@@ -84,6 +80,10 @@ export class DishdetailPage {
               .then(() => console.log('Posted successfully to Twitter'))
               .catch(() => console.log('Failed to post to Twitter'));
           }
+        },
+        {
+          text: 'Add Comment',
+          handler: () => this.openComment()
         },
         {
           text: 'Cancel',

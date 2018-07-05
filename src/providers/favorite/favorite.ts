@@ -18,7 +18,7 @@ export class FavoriteProvider {
   constructor(public http: Http,
     private dishService: DishProvider,
     private storage: Storage,
-    private localnotifications: LocalNotifications) {
+    private localNotifications: LocalNotifications) {
       console.log('Hello FavoriteProvider Provider');
       storage.get('favorites').then(favorites => {
         this.favorites = (favorites ? favorites : []);
@@ -29,12 +29,11 @@ export class FavoriteProvider {
     if(!this.isFavorite(id)){
       this.favorites.push(id);
       this.storage.set('favorites', this.favorites);
-
-      //schedule a single Notification
-      this.localnotifications.schedule({
-        id: id,
-        text: 'Dish' + id + ' added as a favorite successfully'});
     }
+    this.localNotifications.schedule({
+      id: id,
+      text: 'Dish ' + id + ' added as a favorite successfully'
+    });
     console.log('favorites ', this.favorites);
     return true;
   }
@@ -56,4 +55,4 @@ export class FavoriteProvider {
       return Observable.throw('Deleting non-existant favorite ' + id);
     }
   } 
-} 
+}
